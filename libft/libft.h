@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khabbout <khabbout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:11:08 by khabbout          #+#    #+#             */
-/*   Updated: 2023/01/13 20:15:27 by khabbout         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:00:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
-void	ft_putchar_fd(char c, int fd);
+int	    ft_putchar_fd(char c, int fd);
 
 //for modifying char
 int		ft_toupper(int c);
@@ -44,7 +44,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-void	ft_putstr_fd(char *s, int fd);
+int	    ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 
 //for memory
@@ -59,6 +59,6 @@ void	*ft_calloc(size_t count, size_t size);
 //other
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
-void	ft_putnbr_fd(int n, int fd);
+int 	ft_putnbr_fd(int n, int fd);
 
 #endif

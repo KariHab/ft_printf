@@ -10,54 +10,56 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-// il faut enregister dans un buffer sur quoi le str tomber 
-// il faut checker le % savoir ce que c' est comme type
-// il faut printer le buffer temporaire une fois arrivee a la fin de la chaine 
-//
-//as long as I do not have any % just print the char
 #include "ft_printf.h"
 
+static int ft_specifier(va_list args, const char specifier)
+{
+    if(specifier == 'c')
+        return(ft_putchar_fd(va_arg(args, int), 1));
+    else if(specifier == 'd' || specifier == 'i')
+        return(ft_putnbr_fd(va_arg(args, int), 1));
+    else if(specifier == 'u')
+        return(ft_print_unsigned(va_arg(args, unsigned int)));
+    else if(specifier == 's')
+        {
+            if (!va_arg(args, char *))
+                return(ft_putstr_fd("(null)", 1));
+            return(ft_putstr_fd(va_arg(args, char *), 1));
+        }
+        //a revoir
+    else if(specifier == 'p')
+        return(ft_putchar_fd(va_arg(args, unsigned long long), 1));
+        //a revoir
+    else if (specifier == 'x' || specifier == 'X')
+        return(ft_putchar_fd(va_arg(args, unsigned int), 1));
+    else if (specifier == '%')
+        return(ft_putchar_fd('%', 1));
+    return(0);
+}
 
 int ft_printf(const char *s, ...)
 {
-
+    int index;
+    int len_printed;
     va_list args;
+    
+
     va_start(args, s);
-    char *str_arg;
-    int i;
-
-
-    i = 0;
-    while(s[i])
+    index = 0;
+    len_printed = 0;
+    while(s && s[index])
     {
-        if (s[i] == '%')
-        {
-            if (s[i] == 'c')
-            {
-                str_arg = va_arg(args, char *);
-                write (1, 1, 1);
-                i++;
-            }
-            else if (s[i] == 'd')
-            {
-                //use strlcpy & itoa
-                str_arg = va_arg(args, int);
-                write (1, 1, 1);
-                i++;
-            }
-                
-        }
-        else
-        {
-            write(1, &s[i], 1);
-        }
-    return(i);
+        if (s[index] != '%')
+            ft_putchar_fd(s[index], 1);
+        else if (s[index] == '%')
+            len_printed +=ft_specifier(args, s[index + 1]);
+        index++;
     }
+    va_end(args);
+    return (len_printed);
 }
 
-int main ()
-{
-    ft_printf("truc");
-    return (0);
-}
+
+
+    
+      
