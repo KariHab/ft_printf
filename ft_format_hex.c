@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_format_hex.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khabbout <khabbout@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/26 12:37:39 by khabbout          #+#    #+#             */
+/*   Updated: 2023/01/26 12:37:39 by khabbout         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 
 #include "ft_printf.h"
 
 //modified for base 16
-static int	get_size_hexa(int n)
+static int	get_size_hex(unsigned int n)
 {
 	int	size;
 
-	size = 1;
+	size = 0;
 	while (n != 0)
 	{
 		n = n / 16;
@@ -16,35 +27,35 @@ static int	get_size_hexa(int n)
 	return (size);
 }
 
-/*modified itoa for hexadecimal*/
-char	*ft_hexitoa(unsigned long long nbr)
+//fonction pour aller recup la taille d'un pointeur
+void	ft_get_hex(unsigned int nbr, const char specifier)
 {
-	char		*tmp;
-	int			size;
-	long int	nb;
-
-	size = get_size_hexa(nbr);
-    if (nbr == 0)
-		size++;
-	tmp = ft_calloc(size + 1, (sizeof(char)));
-	if (!tmp)
-		return (NULL);
-	while (nbr)
+	if (nbr >=16)
 	{
-		tmp[size - 1] = nbr % 16 + '0';
-		nbr = (nbr / 16);
-		size--;
+        ft_get_hex(nbr / 16, specifier);
+        ft_get_hex(nbr % 16, specifier);
 	}
-	return (tmp);
+	else
+	{
+		if (nbr <=9)
+			ft_putchar_fd((nbr + '0'), 1);
+		else
+        {
+            if (specifier == 'x')
+			    ft_putchar_fd((nbr - 10 + 'a'), 1);
+            else if (specifier == 'X')
+                ft_putchar_fd((nbr - 10 + 'A'), 1);
+        }
+
+	}
 }
 
-int ft_print_hex(unsigned nb, const char specifier)
+int ft_format_hex(unsigned int nbr, const char specifier)
 {
-    char *number;
 
-    number = ft_hexitoa(nb);
-    if (specifier == 'X')
-        number = ft_toupper(number);
-    return(ft_putstr_fd(number,1));
-    free(number);
+	if (nbr == 0)
+		return(ft_putchar_fd('0', 1));
+	else
+        ft_get_hex(nbr, specifier);
+    return (get_size_hex(nbr));
 }

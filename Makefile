@@ -1,7 +1,10 @@
 NAME = libftprintf.a
 
 # Sources are all .c files
-SRCS =  ft_printf.c
+SRCS =  ft_printf.c\
+		ft_format_hex.c\
+		ft_format_ptr.c\
+		ft_format_u.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -12,7 +15,7 @@ CFLAGS	=	-Wall -Werror -Wextra
 RM		=	rm -f
 
 LIBFT = libft.a
-LIBFT_DIR = libft/
+LDIR = libft/
 
 # Pour obtenir les .o de chaque .c 
 $(NAME): $(OBJS) $(LDIR)$(LIBFT)

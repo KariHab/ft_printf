@@ -1,36 +1,57 @@
-
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_format_ptr.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khabbout <khabbout@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/26 12:37:59 by khabbout          #+#    #+#             */
+/*   Updated: 2023/01/26 12:37:59 by khabbout         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/*modified itoa for hexadecimal*/
-char	*ft_hexitoa(unsigned long long nbr)
+//modified for base 16
+static int	get_size_ptr(uintptr_t n)
 {
-	char		*tmp;
-	int			size;
-	long int	nb;
+	int	size;
 
-	size = get_size_hexa(nbr);
-    if (nbr == 0)
-		size++;
-	tmp = ft_calloc(size + 1, (sizeof(char)));
-	if (!tmp)
-		return (NULL);
-	while (nbr)
+	size = 0;
+	while (n != 0)
 	{
-		tmp[size - 1] = nbr % 16 + '0';
-		nbr = (nbr / 16);
-		size--;
+		n = n / 16;
+		size++;
 	}
-	return (tmp);
+	return (size);
 }
 
-int ft_print_hex(unsigned long long ptr, const char specifier)
+//fonction pour aller recup la taille d'un pointeur
+void	ft_get_ptr(uintptr_t nbr)
 {
-	ft_putchar_fd("0x", 1);
-	if (ptr == 0)
-		return(ft_putchar_fd("0", 1));
+	if (nbr >=16)
+	{
+		ft_get_ptr(nbr /16);
+		ft_get_ptr(nbr % 16);
+	}
 	else
-	    return (ft_hexitoa(ptr));
+	{
+		if (nbr <=9)
+			ft_putchar_fd((nbr + '0'), 1);
+		else
+			ft_putchar_fd((nbr - 10 + 'a'), 1);
+	}
+}
+
+int ft_format_ptr(unsigned long long ptr)
+{
+	ft_putstr_fd("0x", 1);
+	if (ptr == 0)
+		return(ft_putchar_fd('0', 1));
+	else
+    {
+        ft_get_ptr(ptr);
+        return(get_size_ptr(ptr));
+    }
+	return (0);
 }
