@@ -20,9 +20,9 @@
 # include "libft/libft.h"
 
 int		ft_printf(const char *s, ...);
-// int		ft_format_u(unsigned int nb);
-// int		ft_format_ptr(uintptr_t ptr);
-// int		ft_format_hex(unsigned int nbr, char specifier);
-char	*ft_convert_nbr(unsigned long long nbr, int base);
+int		ft_printu(unsigned int nb);
+int		ft_printptr(uintptr_t ptr);
+int		ft_printhex(unsigned int nbr, char specifier);
+// char	*ft_convert_nbr(unsigned long long nbr, int base);
 
 #endif

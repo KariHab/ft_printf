@@ -2,7 +2,9 @@ NAME = libftprintf.a
 
 # Sources are all .c files
 SRCS =  ft_printf.c\
-		ft_convert_nbr.c
+		ft_printu.c\
+		ft_printhex.c\
+		ft_printptr.c
 
 OBJS	=	$(SRCS:.c=.o)
 

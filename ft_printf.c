@@ -12,47 +12,6 @@
 
 #include "ft_printf.h"
 
-int	ft_format_hex(unsigned int nbr, char specifier)
-{
-	char	*number;
-	int		len_hex;
-
-	number = ft_convert_nbr(nbr, 16);
-	len_hex = ft_strlen(number) + 1;
-	if (specifier == 'X')
-		while (len_hex--)
-			number[len_hex] = ft_toupper(number[len_hex]);
-	len_hex = ft_putstr_fd(number, 1);
-	free(number);
-	return (len_hex);
-}
-
-int	ft_format_ptr(uintptr_t ptr)
-{
-	char	*number;
-	int		len;
-
-	len = ft_putstr_fd("0x", 1);
-	number = ft_convert_nbr(ptr, 16);
-	len += ft_putstr_fd(number, 1);
-	if (number)
-		free(number);
-	return (len);
-}
-
-int	ft_format_u(unsigned int nb)
-{
-	char	*number;
-	int		len;
-
-	if (nb == 0)
-		return (ft_putchar_fd('0', 1));
-	number = ft_convert_nbr(nb, 10);
-	len = ft_putstr_fd(number, 1);
-	free (number);
-	return (len);
-}
-
 static	int	ft_specifier(va_list args, char specifier)
 {
 	int	len_printed;
@@ -65,11 +24,11 @@ static	int	ft_specifier(va_list args, char specifier)
 	else if (specifier == 'd' || specifier == 'i')
 		len_printed += ft_putnbr_fd(va_arg(args, int), 1);
 	else if (specifier == 'u')
-		return (ft_format_u(va_arg(args, unsigned int)));
+		return (ft_printu(va_arg(args, unsigned int)));
 	else if (specifier == 'p')
-		return (ft_format_ptr(va_arg(args, unsigned long long)));
+		return (ft_printptr(va_arg(args, unsigned long long)));
 	else if (specifier == 'x' || specifier == 'X')
-		return (ft_format_hex(va_arg(args, unsigned int), specifier));
+		return (ft_printhex(va_arg(args, unsigned int), specifier));
 	else if (specifier == '%')
 		return (ft_putchar_fd('%', 1));
 	return (len_printed);
