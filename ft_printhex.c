@@ -48,8 +48,8 @@ void	ft_converthex(unsigned int nb, const char specifier)
 
 int	ft_printhex(unsigned int nbr, const char specifier)
 {
-	// if (nbr == 0)
-	// 	return (ft_putchar_fd('0', 1));
+	if (nbr == 0)
+		return (ft_putchar_fd('0', 1));
 	ft_converthex(nbr, specifier);
 	return (get_size(nbr));
 }

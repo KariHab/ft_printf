@@ -35,8 +35,7 @@ char	*ft_convert_nbr(unsigned long long nbr)
 	tmp = ft_calloc(size + 1, (sizeof(char)));
 	if (!tmp)
 		return (NULL);
-		//j'ai remplacé le size ici au lieu du nbr
-	while (size)
+	while (nbr)
 	{
 		tmp[size - 1] = nbr % 10 + '0';
 		nbr = (nbr / 10);
@@ -50,8 +49,8 @@ int	ft_printu(unsigned int nb)
 	char	*number;
 	int		len;
 
-	// if (nb == 0)
-	// 	return (ft_putchar_fd('0', 1));
+	if (nb == 0)
+		return (ft_putchar_fd('0', 1));
 	number = ft_convert_nbr(nb);
 	len = ft_putstr_fd(number, 1);
 	free (number);
