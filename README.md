@@ -1,2 +1,2 @@
-Code the printf()
-100%
+*Code the printf()
+*100%
