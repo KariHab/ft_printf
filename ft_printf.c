@@ -12,9 +12,9 @@
 
 #include "ft_printf.h"
 
-static	int	ft_specifier(va_list args, char specifier)
+static int ft_specifier(va_list args, char specifier)
 {
-	int	len_printed;
+	int len_printed;
 
 	len_printed = 0;
 	if (specifier == 'c')
@@ -34,25 +34,25 @@ static	int	ft_specifier(va_list args, char specifier)
 	return (len_printed);
 }
 
-int	ft_printf(const char *s, ...)
+int ft_printf(const char *str, ...)
 {
-	int		index;
-	int		len_printed;
-	va_list	args;
+	int index;
+	int len_printed;
+	va_list args;
 
 	index = 0;
 	len_printed = 0;
-	va_start(args, s);
-	if (!s)
+	va_start(args, str);
+	if (!str)
 		return (0);
-	while (s[index])
+	while (str[index])
 	{
-		if (s[index] != '%')
-			len_printed += ft_putchar_fd(s[index], 1);
-		else if (s[index] == '%')
+		if (str[index] != '%')
+			len_printed += ft_putchar_fd(str[index], 1);
+		else if (str[index] == '%')
 		{
 			index++;
-			len_printed += ft_specifier(args, s[index]);
+			len_printed += ft_specifier(args, str[index]);
 		}
 		index++;
 	}
