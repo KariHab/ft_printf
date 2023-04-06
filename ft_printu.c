@@ -25,7 +25,6 @@ static int	get_size(unsigned long long n)
 	return (size);
 }
 
-/*modified itoa for unsigned*/
 char	*ft_convert_nbr(unsigned long long nbr)
 {
 	char	*tmp;
